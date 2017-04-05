@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Islamic Uloom</title>
+    <title>@ViewBag.Title - Islamic Uloom Manager</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -22,7 +22,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Profile", "", "")</li>
+                    <li>@Html.ActionLink("Dashboard", "Index", "Manager")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -41,3 +41,4 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
