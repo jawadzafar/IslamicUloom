@@ -1,0 +1,50 @@
+﻿@model IslamicUloom.Models.Abwaab
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Abwaab</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BaabName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BaabName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BaabNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BaabNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BaabPage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BaabPage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Book.BookName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Book.BookName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BaabId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

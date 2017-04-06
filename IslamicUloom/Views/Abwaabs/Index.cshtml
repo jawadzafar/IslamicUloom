@@ -1,0 +1,51 @@
+﻿@model IEnumerable<IslamicUloom.Models.Abwaab>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BaabName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BaabNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BaabPage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Book.BookName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BaabName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BaabNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BaabPage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book.BookName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.BaabId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BaabId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BaabId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,72 @@
+﻿@model IslamicUloom.Models.Page
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Page</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PageNumberOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PageNumberOrder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PageDetails)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PageDetails)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PageNumberDisplay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PageNumberDisplay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PageTag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PageTag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Abwaab.BaabName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Abwaab.BaabName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Book.BookName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Book.BookName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

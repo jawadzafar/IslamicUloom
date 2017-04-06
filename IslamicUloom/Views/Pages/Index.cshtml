@@ -1,0 +1,63 @@
+﻿@model IEnumerable<IslamicUloom.Models.Page>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PageNumberOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PageDetails)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PageNumberDisplay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PageTag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Abwaab.BaabName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Book.BookName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PageNumberOrder)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PageDetails)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PageNumberDisplay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PageTag)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Abwaab.BaabName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book.BookName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PageId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PageId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PageId })
+        </td>
+    </tr>
+}
+
+</table>
