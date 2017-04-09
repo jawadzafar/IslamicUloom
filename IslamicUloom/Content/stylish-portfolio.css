@@ -20,6 +20,12 @@ a {
     color: rgb(255,165,0) !important;
 }
 
+.call-to-action{
+    color:white;
+}
+#services{
+    color:white
+}
 .text-primary {
     color: rgb(255,165,0) !important;
 }
