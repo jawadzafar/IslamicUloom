@@ -1,0 +1,191 @@
+﻿@model IslamicUloom.ViewModel.GSearchViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>View</h2>
+@using (Html.BeginForm("IndexSearch","GSearch",FormMethod.Post))
+{
+   
+    <div class="panel panel-heading" style="background-color:orange"> Book Wise Search </div>
+    <div  class="panel-body" style="color:white">
+     
+            <div class="row" style="background-color:orange">
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        @Html.Label("Books", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6">
+                            @Html.DropDownList("BookId", (IEnumerable<SelectListItem>)ViewBag.BookName, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.books, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Authors", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6">
+                            @Html.DropDownList("AuthorId", (IEnumerable<SelectListItem>)ViewBag.AuthorId, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.authors, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Publisher", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6">
+                            @Html.DropDownList("PublisherId", (IEnumerable<SelectListItem>)ViewBag.PublisherId, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.publishers, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                    @Html.Label("Author Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select id="AuthorId">
+                            @foreach (var item in Model.authors)
+                            {
+                                <option>@item.AuthorName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Publisher Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select id="PublisherId">
+                            @foreach (var item in Model.publishers)
+                            {
+                                <option>@item.PublisherName</option>
+                            }
+                        </select>
+                    </div>
+                </div>*@
+
+                    @*<div class="form-group">
+                    @Html.Label("Book Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select id="BookId">
+                            @foreach (var item in Model.books)
+                            {
+                                <option>@item.BookName</option>
+                            }
+                        </select>
+                    </div>
+                </div>*@
+                    @*<div class="form-group">
+                    @Html.Label("Baab Name:", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select id="BaabId">
+                            @foreach (var item in Model.abwaabs)
+                            {
+                                <option>@item.BaabName</option>
+                            }
+                        </select>
+                    </div>
+                </div>*@
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            @*@Html.ActionLink("Book Search", "IndexSearch", "GSearch" ,new { @class = "btn btn-default" })*@
+                            <input type="submit" value="Search" class="btn btn-default" />
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+    @*<div class="panel panel-heading" style="background-color:orange">Word Wise Search</div>
+    <div class="panel-body" style="color:white">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.ActionLink("Search Word Wise", "Index", "WordSearch", new { area=""},new { @class="btn btn-primary"})
+                </div>
+            </div>
+        </div>
+    </div>*@
+}
+
+
+@*<h1>Books Found @Model.books.Count</h1>
+@foreach (var item in Model.books)
+{
+    foreach (var c in item.Abwaabs)
+    {
+        <option>@c.Pages.Count</option>
+    }
+    <option>@item.Abwaabs.Count</option>
+}*@
+
+@if (IsPost)
+{
+<table class="table table-responsive" >
+    <tr>
+        <th>Book Name</th>
+        <th>Author Name</th>
+        <th>Publisher Name</th>
+        <th>Publishing Year</th>
+        <th>Eidition Number</th>
+        <th>Book Completed</th>
+        <th>No of Pages</th>
+    </tr>
+
+  @foreach (var item in Model.books)
+    {
+        <tr>
+            <td>
+                @*@Html.DisplayFor(modelitem => item.BookName)*@
+                @Html.ActionLink(item.BookName.ToString(), "Index", "ABwaabDetails", new { @id = item.BookId }, null)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => item.Author.AuthorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => item.Publisher.PublisherName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => item.PublishingYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => item.EditionNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => item.BookCompleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => item.NumberOfPages)
+            </td>
+        </tr>
+
+        @*<tr>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>*@
+  }
+
+</table>
+}
+
+
+
+
+
+        @*@Html.DropDownList("Bookslist",ViewBag.getbookslist as SelectList, "Please Select the Books")*@
+
+        @*<div class="form-group">
+                @Html.Label("BookName", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("Bookslist", ViewBag.vm.books as SelectList, "Please Select the Books", htmlAttributes: new { @class = "from-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("AuthorName", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("Authorslist", ViewBag.vm.authors as SelectList, "Please Select the Books", htmlAttributes: new { @class = "from-control" })
+                </div>
+            </div>*@
+
