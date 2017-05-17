@@ -25,6 +25,7 @@
         <AssociationConnector Association="DigitalLibraryModel.FK_Books_Publishers" ManuallyRouted="false" />
         <AssociationConnector Association="DigitalLibraryModel.FK_Pages_Books1" ManuallyRouted="false" />
         <AssociationConnector Association="DigitalLibraryModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DigitalLibraryModel.sysdiagram" Width="1.5" PointX="8.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
