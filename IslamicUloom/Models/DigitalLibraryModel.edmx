@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DigitalLibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DigitalLibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -103,6 +103,7 @@
           <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="BookCompleted" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="NumberOfPages" Type="int" />
+          <Property Name="BookCover" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="LogInfo">
           <Key>
@@ -132,6 +133,16 @@
           <Property Name="PublisherId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PublisherName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PublisherAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_Abwaab_Books">
           <End Role="Books" Type="Self.Books" Multiplicity="1" />
@@ -276,6 +287,7 @@
           <EntitySet Name="LogInfo" EntityType="Self.LogInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pages" EntityType="Self.Pages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Publishers" EntityType="Self.Publishers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Abwaab_Books" Association="Self.FK_Abwaab_Books">
             <End Role="Books" EntitySet="Books" />
             <End Role="Abwaab" EntitySet="Abwaab" />
@@ -313,8 +325,7 @@
             <End Role="Pages" EntitySet="Pages" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DigitalLibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -421,6 +432,7 @@
           <NavigationProperty Name="Author" Relationship="Self.FK_Books_Authors" FromRole="Books" ToRole="Authors" />
           <NavigationProperty Name="Publisher" Relationship="Self.FK_Books_Publishers" FromRole="Books" ToRole="Publishers" />
           <NavigationProperty Name="Pages" Relationship="Self.FK_Pages_Books1" FromRole="Books" ToRole="Pages" />
+          <Property Name="BookCover" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="LogInfo">
           <Key>
@@ -592,10 +604,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <FunctionImport Name="sp_GetPageByPageNumber" ReturnType="Collection(DigitalLibraryModel.sp_GetPageByPageNumber_Result)">
-            <Parameter Name="PageNumber" Mode="In" Type="Int32" />
+          <Parameter Name="PageNumber" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetPagesByBookId" ReturnType="Collection(DigitalLibraryModel.sp_GetPagesByBookId_Result)">
-            <Parameter Name="BookId" Mode="In" Type="Int32" />
+          <Parameter Name="BookId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_InsertPage">
             <Parameter Name="bookId" Mode="In" Type="Int32" />
@@ -604,6 +616,7 @@
             <Parameter Name="PageNumberDisplay" Mode="In" Type="String" />
             <Parameter Name="PageTag" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="sysdiagrams" EntityType="DigitalLibraryModel.sysdiagram" />
         </EntityContainer>
         <ComplexType Name="sp_GetPageByPageNumber_Result">
           <Property Type="Int32" Name="PageId" Nullable="false" />
@@ -623,6 +636,16 @@
           <Property Type="String" Name="PageTag" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="BookId" Nullable="false" />
         </ComplexType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -714,6 +737,7 @@
           <EntitySetMapping Name="Books">
             <EntityTypeMapping TypeName="DigitalLibraryModel.Book">
               <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="BookCover" ColumnName="BookCover" />
                 <ScalarProperty Name="BookId" ColumnName="BookId" />
                 <ScalarProperty Name="BookName" ColumnName="BookName" />
                 <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
@@ -793,6 +817,17 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_InsertPage" FunctionName="DigitalLibraryModel.Store.sp_InsertPage" />
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DigitalLibraryModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

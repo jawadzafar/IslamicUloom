@@ -1,0 +1,38 @@
+﻿@model IslamicUloom.ViewModel.GSearchViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+   <h2>Baab Details</h2>
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        </div>
+        <table class="table table-responsive">
+            <tr>
+                <th>Book Name</th>
+                <th>Baab Name</th>
+                <th>Baab Number</th>
+                <th>Pages</th>
+            </tr>
+
+            @foreach (var item in Model.abwaabs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.Book.BookName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.BaabName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.BaabNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelitem => item.BaabPage)
+                    </td>
+                </tr>
+            }
+
+        </table>
+        }

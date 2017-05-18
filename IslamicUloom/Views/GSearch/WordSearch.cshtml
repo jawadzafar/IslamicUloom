@@ -1,0 +1,65 @@
+﻿@model IslamicUloom.ViewModel.GSearchViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Words Search</h2>
+@using (Html.BeginForm())
+{
+    <div class="panel panel-heading">Word Search</div>
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="row">
+                <div class="form-horizontal">
+                    @Html.TextBox("SearchText", null, htmlAttributes: new { @class = "form-control" })
+                    <input type="submit" value="Search" name="submit" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (IsPost)
+{
+    <table class="table table-responsive">
+        <tr>
+            <th>Book Name</th>
+            <th>Baab Name</th>
+            <th>Page Name</th>
+            <th>Page Number Display</th>
+            <th>Pages Details</th>
+        </tr>
+
+        @foreach (var item in Model.pages)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Book.BookName)
+                    @*@Html.ActionLink(item.BookName.ToString(), "Index", "ABwaabDetails", new { @id = item.BookId }, null)*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Abwaab.BaabName)
+                    @*@Html.ActionLink(item.BookName.ToString(), "Index", "ABwaabDetails", new { @id = item.BookId }, null)*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.PageTag)
+                    @*@Html.ActionLink(item.BookName.ToString(), "Index", "ABwaabDetails", new { @id = item.BookId }, null)*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.PageNumberDisplay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.PageDetails)
+                </td>
+                </tr>
+              }  
+            @*<tr>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>*@
+        
+
+    </table>
+}

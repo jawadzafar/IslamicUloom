@@ -1,0 +1,135 @@
+﻿@model IslamicUloom.ViewModel.GSearchViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Islamic Uloom</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="~/Content/1-col-portfolio.css" rel="stylesheet" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+    @using (Html.BeginForm("IndexSearch", "GSearch", FormMethod.Post))
+    {
+
+        <div class="panel panel-heading" style="background-color:blue"> Book Wise Search </div>
+        <div class="panel-body" style="color:white">
+
+            <div class="row" style="background-color:blue">
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        @Html.Label("Books", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6">
+                            @Html.DropDownList("BookId", (IEnumerable<SelectListItem>)ViewBag.BookName, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.books, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Authors", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6">
+                            @Html.DropDownList("AuthorId", (IEnumerable<SelectListItem>)ViewBag.AuthorId, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.authors, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Publisher", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6">
+                            @Html.DropDownList("PublisherId", (IEnumerable<SelectListItem>)ViewBag.PublisherId, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.publishers, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            @*@Html.ActionLink("Book Search", "IndexSearch", "GSearch" ,new { @class = "btn btn-default" })*@
+                            <input type="submit" value="Search" class="btn btn-default" />
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    }
+
+
+
+    @*@if (IsPost)
+    {*@
+        <table class="table table-responsive">
+            <tr>
+                <th>Book Cover</th>
+                <th>Book Name</th>
+                <th>Author Name</th>
+                <th>Publisher Name</th>
+                <th>Publishing Year</th>
+                <th>Eidition Number</th>
+                <th>Book Completed</th>
+                <th>No of Pages</th>
+            </tr>
+
+            @foreach (var item in Model.books)
+    {
+    <tr>
+        <td>
+            @if (@item.BookCover == null)
+            {
+                @Html.Display("Image not found")
+            }
+            else
+            {
+                <a href="~/ABwaabDetails/Index/@item.BookId"><img src="~/Book_Images/@item.BookCover" width="250" height="250" alt="Image not found" /></a>
+            }
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelitem => item.BookName)*@
+            @Html.ActionLink(item.BookName.ToString(), "Index", "ABwaabDetails", new { @id = item.BookId }, null)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelitem => item.Author.AuthorName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelitem => item.Publisher.PublisherName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelitem => item.PublishingYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelitem => item.EditionNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelitem => item.BookCompleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelitem => item.NumberOfPages)
+        </td>
+    </tr>
+
+  }
+
+        </table>
+    @*}*@
+    
+
+</body>
+
+

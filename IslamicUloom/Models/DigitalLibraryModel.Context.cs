@@ -39,6 +39,7 @@ namespace IslamicUloom.Models
         public virtual DbSet<LogInfo> LogInfoes { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
         public virtual DbSet<Publisher> Publishers { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     
         public virtual ObjectResult<sp_GetPageByPageNumber_Result> sp_GetPageByPageNumber(Nullable<int> pageNumber)
         {
