@@ -31,7 +31,6 @@ namespace IslamicUloom.Models
         public string BookCompleted { get; set; }
         public Nullable<int> NumberOfPages { get; set; }
         public string BookCover { get; set; }
-    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Abwaab> Abwaabs { get; set; }
         public virtual Author Author { get; set; }
