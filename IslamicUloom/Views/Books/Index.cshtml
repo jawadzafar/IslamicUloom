@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+   
 }
 
 <h2>Index</h2>
@@ -38,7 +39,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Publisher.PublisherName)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayName("Book Cover")
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -70,6 +73,23 @@
         <td>
             @Html.DisplayFor(modelItem => item.Publisher.PublisherName)
         </td>
+        <td>
+            @if( item.BookCover== null){
+                @Html.Display("No Image Found")
+            }
+            else
+            {
+
+            @*<img src="@item.BookCover"/>*@
+                <img src="~/Book_Images/@item.BookCover" width="120" height="120" />
+
+                //item.BookCover = item.BookCover + "/" + Directory.GetFiles(Server.MapPath(item.BookCover))[0];
+
+
+
+            }
+        </td>
+
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.BookId }) |
             @Html.ActionLink("Details", "Details", new { id=item.BookId }) |

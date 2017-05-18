@@ -25,13 +25,12 @@ namespace IslamicUloom.Models
         public string BookName { get; set; }
         public int PublisherId { get; set; }
         public int AuthorId { get; set; }
-
-        
         public System.DateTime PublishingYear { get; set; }
         public int EditionNumber { get; set; }
         public string UserName { get; set; }
         public string BookCompleted { get; set; }
         public Nullable<int> NumberOfPages { get; set; }
+        public string BookCover { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Abwaab> Abwaabs { get; set; }
@@ -39,5 +38,6 @@ namespace IslamicUloom.Models
         public virtual Publisher Publisher { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Page> Pages { get; set; }
+       
     }
 }

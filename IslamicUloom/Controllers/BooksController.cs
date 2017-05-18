@@ -7,13 +7,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IslamicUloom.Models;
+using System.IO;
 
 namespace IslamicUloom.Controllers
 {
     public class BooksController : Controller
     {
         private DigitalLibraryEntities db = new DigitalLibraryEntities();
-
         // GET: Books
         public ActionResult Index()
         {
@@ -50,8 +50,22 @@ namespace IslamicUloom.Controllers
         [Authorize(Roles ="Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BookId,BookName,PublisherId,AuthorId,PublishingYear,EditionNumber,UserName,BookCompleted,NumberOfPages")] Book book)
+        public ActionResult Create(FormCollection formCollection,[Bind(Include = "BookId,BookName,PublisherId,AuthorId,PublishingYear,EditionNumber,UserName,BookCompleted,NumberOfPages")] Book book, HttpPostedFileBase file)
         {
+            var allowedExtensions = new[] { ".jpeg", ".jpg", ".JPG", ".png"};
+            var filename = file.FileName.ToString();
+            var ext = Path.GetExtension(file.FileName);
+            
+                if (allowedExtensions.Contains(ext))
+                {
+                    var name = Path.GetFileNameWithoutExtension(filename);
+                    var myfile = name + ext;
+                    var path = Path.Combine(Server.MapPath(@"~\Book_Images"), myfile);
+                    book.BookCover = myfile;
+                    file.SaveAs(path);
+                }
+            
+            
             if (ModelState.IsValid)
             {
                 db.Books.Add(book);
